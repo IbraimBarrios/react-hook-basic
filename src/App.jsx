@@ -4,16 +4,6 @@ import "./App.css";
 function App() {
   const [name, setName] = useState("Gentelman");
 
-  // useEffect(() => {
-  //   console.log("Rendered");
-  //   if (name != "Gentelman") {
-  //     refButton.current.style.color = "red";
-  //   }
-
-  //   //termina el siclo de vida (solo se usa en siertos casos)
-  //   return () => {};
-  // }, [name]);
-
   const changedName = useMemo(() => {
     return `Name: ${name}`;
   }, [name])
