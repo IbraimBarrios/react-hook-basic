@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 
@@ -8,17 +9,23 @@ function App() {
     return `Name: ${name}`;
   }, [name])
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setName("Paco");
-  };
+  }, [name])
 
   return (
     <div className="App">
       <h1>{name}</h1>
-      <button onClick={handleClick}>
-        Click here to change name
-      </button>
+      <ChangeName changedName={handleClick}/>      
       {changedName}
+    </div>
+  );
+}
+
+function ChangeName({ changedName }) {
+  return (
+    <div>
+      <button onClick={changedName}>Click here to change name</button>
     </div>
   );
 }
