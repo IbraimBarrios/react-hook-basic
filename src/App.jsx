@@ -1,31 +1,33 @@
-import { useCallback } from "react";
+import { useCallback, useReducer } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 
+function nameReducer (state, action){
+  switch (action.type) {
+    case "Gerntleman":
+      return `Gerntleman ${state}`;
+    case "Mister":
+      return `Mister ${state}`;
+    case "Miss":
+      return `Miss ${state}`;
+    default:
+      console.log("no entro");
+  }
+};
+
 function App() {
-  const [name, setName] = useState("Gentelman");
-
-  const changedName = useMemo(() => {
-    return `Name: ${name}`;
-  }, [name])
-
-  const handleClick = useCallback(() => {
-    setName("Paco");
-  }, [name])
+  const [state, dispatch] = useReducer(nameReducer, "div");
 
   return (
     <div className="App">
-      <h1>{name}</h1>
-      <ChangeName changedName={handleClick}/>      
-      {changedName}
-    </div>
-  );
-}
-
-function ChangeName({ changedName }) {
-  return (
-    <div>
-      <button onClick={changedName}>Click here to change name</button>
+      <h1>{state}</h1>
+      <button onClick={() => dispatch({ type: "Gerntleman" })}>
+        Call me Gentkeman
+      </button>
+      <button onClick={() => dispatch({ type: "Mister" })}>
+        Call me Mister
+      </button>
+      <button onClick={() => dispatch({ type: "Miss" })}>Call me Miss</button>
     </div>
   );
 }
